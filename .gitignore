@@ -15,6 +15,12 @@ hs_err_pid*
 *.iml
 .idea/
 
+# vim swp
+*.swp
+
 # Gradle cache
 .gradle/
 build/
+
+# Include gradle wrapper
+!gradle/wrapper/*.jar
