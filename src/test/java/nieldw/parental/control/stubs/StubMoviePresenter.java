@@ -1,11 +1,10 @@
 package nieldw.parental.control.stubs;
 
-import nieldw.parental.control.MoviePresenter;
 import nieldw.parental.control.ParentalControlService;
 
 import java.util.Map;
 
-public class StubMoviePresenter implements MoviePresenter {
+public class StubMoviePresenter {
 
     private ParentalControlService parentalControlService;
     private Map<String, String> movieNameToIdMap;
@@ -25,12 +24,7 @@ public class StubMoviePresenter implements MoviePresenter {
     }
 
     public void requestToWatchMovie(String name) {
-        allowWatching = parentalControlService.isAllowedToWatchMovie(preferredLevel, movieNameToIdMap.get(name));
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
-
+        allowWatching = parentalControlService.isAllowedToWatchMovie(preferredLevel, movieNameToIdMap.get(name), null);
     }
 
     public boolean isAllowedWatchingMovie() {

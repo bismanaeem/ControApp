@@ -23,3 +23,8 @@ Acceptance tests are written with cucumber-jvm. Feature files are found under `s
 The acceptance tests are run as part of the build, and can be run using the `cucumber` gradle task:
 
     ./gradlew cucumber
+
+## Design
+The `ParentalControlService` requires a reference to a `MovieService`. A `AdditionalMessageCallback` is used to display
+messages to the user, for example, if an error occurs. This is necessary because of the requirement to return a boolean
+to the calling client.

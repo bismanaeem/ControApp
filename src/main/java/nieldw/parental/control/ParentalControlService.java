@@ -4,10 +4,10 @@ import nieldw.parental.control.meta.MovieService;
 
 public class ParentalControlService {
 
-    public ParentalControlService(MoviePresenter stubMoviePresenter, MovieService movieService) {
+    public ParentalControlService(MovieService movieService) {
     }
 
-    public boolean isAllowedToWatchMovie(String preferredLevel, String movieId) {
+    public boolean isAllowedToWatchMovie(String preferredLevel, String movieId, AdditionalMessageCallback callback) {
         return false;
     }
 }
