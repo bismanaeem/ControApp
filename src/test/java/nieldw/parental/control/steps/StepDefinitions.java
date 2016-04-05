@@ -74,15 +74,11 @@ public class StepDefinitions {
 
     @Then("^she is allowed to watch it$")
     public void she_is_allowed_to_watch_it() throws Throwable {
-        assertThat("Parental Control Service response received",
-                stubMoviePresenter.isAllowWatchingResponseReceived(), is(true));
         assertThat("User is allowed to watch movie", stubMoviePresenter.isAllowedWatchingMovie(), is(true));
     }
 
     @Then("^she is not allowed to watch it$")
     public void she_is_not_allowed_to_watch_it() throws Throwable {
-        assertThat("Parental Control Service response received",
-                stubMoviePresenter.isAllowWatchingResponseReceived(), is(true));
         assertThat("User is not allowed to watch movie", stubMoviePresenter.isAllowedWatchingMovie(), is(false));
     }
 }

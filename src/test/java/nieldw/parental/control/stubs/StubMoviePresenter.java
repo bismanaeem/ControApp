@@ -11,7 +11,6 @@ public class StubMoviePresenter implements MoviePresenter {
     private Map<String, String> movieNameToIdMap;
     private String preferredLevel;
     private boolean allowWatching;
-    private boolean allowWatchingResponseReceived;
 
     public StubMoviePresenter(
             Map<String, String> movieNameToIdMap,
@@ -25,15 +24,8 @@ public class StubMoviePresenter implements MoviePresenter {
         this.parentalControlService = parentalControlService;
     }
 
-    @Override
     public void requestToWatchMovie(String name) {
-        parentalControlService.isAllowedToWatchMovie(preferredLevel, movieNameToIdMap.get(name));
-    }
-
-    @Override
-    public void allowWatchingMovie() {
-        allowWatchingResponseReceived = true;
-        allowWatching = true;
+        allowWatching = parentalControlService.isAllowedToWatchMovie(preferredLevel, movieNameToIdMap.get(name));
     }
 
     @Override
@@ -43,9 +35,5 @@ public class StubMoviePresenter implements MoviePresenter {
 
     public boolean isAllowedWatchingMovie() {
         return allowWatching;
-    }
-
-    public boolean isAllowWatchingResponseReceived() {
-        return allowWatchingResponseReceived;
     }
 }
