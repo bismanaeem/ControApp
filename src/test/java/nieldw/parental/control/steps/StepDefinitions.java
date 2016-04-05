@@ -66,7 +66,7 @@ public class StepDefinitions {
 
         stubMoviePresenter = new StubMoviePresenter(movieNameToIdMap, preferredLevel);
         final ParentalControlService parentalControlService =
-                new ParentalControlService(stubMoviePresenter, stubMovieService);
+                new ParentalControlService(stubMovieService);
         stubMoviePresenter.setParentalControlService(parentalControlService);
 
         stubMoviePresenter.requestToWatchMovie(movie);
