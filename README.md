@@ -17,3 +17,9 @@ The Gradle build system was chosen because with the Gradle Wrapper it is possibl
 installation of third party software. Perform a build with this command:
 
     ./gradlew build
+    
+## Testing
+Acceptance tests are written with cucumber-jvm. Feature files are found under `src/test/resources/features/`.
+The acceptance tests are run as part of the build, and can be run using the `cucumber` gradle task:
+
+    ./gradlew cucumber

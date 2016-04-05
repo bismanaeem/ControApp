@@ -1,3 +1,4 @@
+@Ignore
 Feature: Customer can only access movies with ratings lower than their preference
 
   Background:
@@ -13,5 +14,11 @@ Feature: Customer can only access movies with ratings lower than their preferenc
     Then she is allowed to watch it
 
   Scenario: The customer requests to watch a movie with a rating less than her parental control level preference and is allowed to watch it.
+    Given the customer's parental control level preference is 18
+    When the customer requests to watch "Dogs of a Nightmare"
+    Then she is allowed to watch it
 
   Scenario: The customer requests to watch a movie with a rating higher than her parental control level preference and is not allowed to watch it.
+    Given the customer's parental control level preference is PG
+    When the customer requests to watch "Dogs of a Nightmare"
+    Then she is not allowed to watch it
