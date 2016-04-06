@@ -41,4 +41,21 @@ public class ParentalControlServiceTest {
         assertThat(result, is(true));
         verifyZeroInteractions(additionalMessageCallback);
     }
+
+    @Test
+    public void isAllowedToWatchMovieWithMovieRatingEqualToUserPreference_shouldAllowWatching() throws Exception {
+        // Set up fixture
+        service = new ParentalControlService(movieService, levelComparator);
+
+        // Set expectations
+        when(movieService.getParentalControlLevel("some movie id")).thenReturn("PG");
+        when(levelComparator.compare("PG", "PG")).thenReturn(0);
+
+        // Exercise SUT
+        final boolean result = service.isAllowedToWatchMovie("PG", "some movie id", additionalMessageCallback);
+
+        // Verify behaviour
+        assertThat(result, is(true));
+        verifyZeroInteractions(additionalMessageCallback);
+    }
 }

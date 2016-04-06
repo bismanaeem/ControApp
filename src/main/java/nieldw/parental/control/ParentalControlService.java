@@ -19,7 +19,7 @@ public class ParentalControlService {
     public boolean isAllowedToWatchMovie(String preferredLevel, String movieId, AdditionalMessageCallback callback) {
         try {
             final String movieParentalControlLevel = movieService.getParentalControlLevel(movieId);
-            if (levelComparator.compare(movieParentalControlLevel, preferredLevel) < 0) {
+            if (levelComparator.compare(movieParentalControlLevel, preferredLevel) <= 0) {
                 return true;
             }
         } catch (TitleNotFoundException | TechnicalFailureException e) {
