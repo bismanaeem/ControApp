@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import nieldw.parental.control.ParentalControlLevelComparator;
 import nieldw.parental.control.ParentalControlService;
 import nieldw.parental.control.meta.MovieService;
 import nieldw.parental.control.row.MovieRow;
@@ -22,24 +23,27 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 public class StepDefinitions {
 
-    private Set<String> validLevels;
+    private List<String> validLevels;
     private Map<String, String> movieNameToIdMap;
     private MovieService stubMovieService;
     private String preferredLevel;
     private StubMoviePresenter stubMoviePresenter;
+    private ParentalControlLevelComparator levelComparator;
 
     @Before
     public void init() {
-        validLevels = new HashSet<>();
+        validLevels = new ArrayList<>();
         movieNameToIdMap = new HashMap<>();
         stubMovieService = null;
         preferredLevel = null;
         stubMoviePresenter = null;
+        levelComparator = null;
     }
 
     @Given("^parental control levels (.*)$")
     public void parental_control_levels_U_PG_(List<String> levels) throws Throwable {
-        validLevels.addAll(levels);
+        validLevels = levels;
+        levelComparator = new ParentalControlLevelComparator(validLevels);
     }
 
     @And("^the following movies are offered by the service:$")
@@ -66,7 +70,7 @@ public class StepDefinitions {
 
         stubMoviePresenter = new StubMoviePresenter(movieNameToIdMap, preferredLevel);
         final ParentalControlService parentalControlService =
-                new ParentalControlService(stubMovieService);
+                new ParentalControlService(stubMovieService, levelComparator);
         stubMoviePresenter.setParentalControlService(parentalControlService);
 
         stubMoviePresenter.requestToWatchMovie(movie);
