@@ -24,8 +24,16 @@ The acceptance tests are run as part of the build, and can be run using the `cuc
 
     ./gradlew cucumber
 
+Unit tests can be run with the `test` gradle task:
+
+    ./gradlew test
+
+To run both, use:
+
+    ./gradlew check
+
 ## Design
 The `ParentalControlService` requires a reference to a `MovieService` and a string `Comparator` to order parental 
 control levels. This is necessary because levels have to be handled as strings. A `AdditionalMessageCallback` is used to
 display messages to the user, for example, if an error occurs. This is necessary because of the requirement to return a 
-boolean to the calling client.
+boolean to the calling client and makes it possible to fail safely.
