@@ -1,6 +1,8 @@
 package nieldw.parental.control;
 
 import nieldw.parental.control.meta.MovieService;
+import nieldw.parental.control.meta.TechnicalFailureException;
+import nieldw.parental.control.meta.TitleNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -10,6 +12,8 @@ import java.util.Comparator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
@@ -57,5 +61,43 @@ public class ParentalControlServiceTest {
         // Verify behaviour
         assertThat(result, is(true));
         verifyZeroInteractions(additionalMessageCallback);
+    }
+
+    @Test
+    public void isAllowedToWatchMovieWithTitleNotFoundException_shouldCallCallbackWithMessage() throws Exception {
+        // Set up fixture
+        final String expectedMessage = "title not found exception message";
+        service = new ParentalControlService(movieService, levelComparator);
+
+        // Set expectations
+        when(movieService.getParentalControlLevel("some movie id"))
+                .thenThrow(new TitleNotFoundException(expectedMessage));
+
+        // Exercise SUT
+        final boolean result = service.isAllowedToWatchMovie("PG", "some movie id", additionalMessageCallback);
+
+        // Verify behaviour
+        assertThat(result, is(false));
+        verify(additionalMessageCallback).showMessage(eq(expectedMessage));
+        verifyZeroInteractions(levelComparator);
+    }
+
+    @Test
+    public void isAllowedToWatchMovieWithTechnicalFailureException_shouldCallCallbackWithMessage() throws Exception {
+        // Set up fixture
+        final String expectedMessage = "technical failure exception message";
+        service = new ParentalControlService(movieService, levelComparator);
+
+        // Set expectations
+        when(movieService.getParentalControlLevel("some movie id"))
+                .thenThrow(new TechnicalFailureException(expectedMessage));
+
+        // Exercise SUT
+        final boolean result = service.isAllowedToWatchMovie("PG", "some movie id", additionalMessageCallback);
+
+        // Verify behaviour
+        assertThat(result, is(false));
+        verify(additionalMessageCallback).showMessage(eq(expectedMessage));
+        verifyZeroInteractions(levelComparator);
     }
 }

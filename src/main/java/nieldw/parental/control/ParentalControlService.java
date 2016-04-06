@@ -23,7 +23,7 @@ public class ParentalControlService {
                 return true;
             }
         } catch (TitleNotFoundException | TechnicalFailureException e) {
-            e.printStackTrace();
+            callback.showMessage(e.getMessage());
         }
         return false;
     }
