@@ -12,6 +12,11 @@ This project only requires JDK 8. Install on linux using this command:
 
     sudo apt-get install openjdk-8-jdk
 
+### File Permissions
+The `gradlew` script should be executable by the user by default. If it is not, run this command:
+
+    chmod u+x gradlew
+
 ## Building
 The Gradle build system was chosen because with the Gradle Wrapper it is possible to perform a build without any further
 installation of third party software. Perform a build with this command:
@@ -42,7 +47,7 @@ boolean to the calling client and makes it possible to fail safely.
 The principle of Dependency Injection (DI) is followed throughout the system. DI is done manually. Using a framework 
 would be overkill due to the simplicity of the system.
 
-## Reference implementation
+## Reference Implementation
 A reference implementation with a command line interface (CLI) is provided with a `FakeMovieService` in the
 `nieldw.parental.control.ref` package to illustrate how the `ParentalControlService` may be used in a client.
 
