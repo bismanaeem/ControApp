@@ -4,22 +4,20 @@ import nieldw.parental.control.ParentalControlService;
 
 import java.util.Map;
 
-public class StubMoviePresenter {
+public class AcceptanceTestParentalControlServiceClient {
 
     private ParentalControlService parentalControlService;
     private Map<String, String> movieNameToIdMap;
     private String preferredLevel;
     private boolean allowWatching;
 
-    public StubMoviePresenter(
+    public AcceptanceTestParentalControlServiceClient(
             Map<String, String> movieNameToIdMap,
-            String preferredLevel) {
+            String preferredLevel,
+            ParentalControlService parentalControlService) {
 
         this.movieNameToIdMap = movieNameToIdMap;
         this.preferredLevel = preferredLevel;
-    }
-
-    public void setParentalControlService(ParentalControlService parentalControlService) {
         this.parentalControlService = parentalControlService;
     }
 

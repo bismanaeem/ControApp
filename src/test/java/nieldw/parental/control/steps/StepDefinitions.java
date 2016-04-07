@@ -9,7 +9,7 @@ import nieldw.parental.control.ParentalControlLevelComparator;
 import nieldw.parental.control.ParentalControlService;
 import nieldw.parental.control.meta.MovieService;
 import nieldw.parental.control.row.MovieRow;
-import nieldw.parental.control.stubs.StubMoviePresenter;
+import nieldw.parental.control.stubs.AcceptanceTestParentalControlServiceClient;
 import nieldw.parental.control.stubs.StubMovieService;
 
 import java.util.*;
@@ -27,7 +27,7 @@ public class StepDefinitions {
     private Map<String, String> movieNameToIdMap;
     private MovieService stubMovieService;
     private String preferredLevel;
-    private StubMoviePresenter stubMoviePresenter;
+    private AcceptanceTestParentalControlServiceClient parentalControlServiceClient;
     private ParentalControlLevelComparator levelComparator;
 
     @Before
@@ -36,7 +36,7 @@ public class StepDefinitions {
         movieNameToIdMap = new HashMap<>();
         stubMovieService = null;
         preferredLevel = null;
-        stubMoviePresenter = null;
+        parentalControlServiceClient = null;
         levelComparator = null;
     }
 
@@ -68,21 +68,19 @@ public class StepDefinitions {
         assertThat("At least one movie must be offered", movieNameToIdMap, is(notNullValue()));
         assertThat("Preferred parental control level must be set", preferredLevel, is(not(nullValue())));
 
-        stubMoviePresenter = new StubMoviePresenter(movieNameToIdMap, preferredLevel);
-        final ParentalControlService parentalControlService =
-                new ParentalControlService(stubMovieService, levelComparator);
-        stubMoviePresenter.setParentalControlService(parentalControlService);
+        parentalControlServiceClient = new AcceptanceTestParentalControlServiceClient(
+                movieNameToIdMap, preferredLevel, new ParentalControlService(stubMovieService, levelComparator));
 
-        stubMoviePresenter.requestToWatchMovie(movie);
+        parentalControlServiceClient.requestToWatchMovie(movie);
     }
 
     @Then("^she is allowed to watch it$")
     public void she_is_allowed_to_watch_it() throws Throwable {
-        assertThat("User is allowed to watch movie", stubMoviePresenter.isAllowedWatchingMovie(), is(true));
+        assertThat("User is allowed to watch movie", parentalControlServiceClient.isAllowedWatchingMovie(), is(true));
     }
 
     @Then("^she is not allowed to watch it$")
     public void she_is_not_allowed_to_watch_it() throws Throwable {
-        assertThat("User is not allowed to watch movie", stubMoviePresenter.isAllowedWatchingMovie(), is(false));
+        assertThat("User is not allowed to watch movie", parentalControlServiceClient.isAllowedWatchingMovie(), is(false));
     }
 }
