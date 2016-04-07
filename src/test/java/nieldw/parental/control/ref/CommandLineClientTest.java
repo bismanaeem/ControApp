@@ -9,15 +9,14 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommandLineClientTest {
@@ -115,5 +114,21 @@ public class CommandLineClientTest {
 
         // Verify behaviour
         verify(out).println("error message");
+    }
+
+    @Test
+    public void setWithIOException_shouldPrintMessageAndExit() throws Exception {
+        // Set up fixture
+        in = mock(InputStream.class);
+        client = new CommandLineClient(out, in, service);
+
+        // Set expectations
+        when(in.read(any())).thenThrow(new IOException("something went wrong"));
+
+        // Exercise SUT
+        client.start();
+
+        // Verify behaviour
+        verify(out).println("An error occurred. Please start over.");
     }
 }

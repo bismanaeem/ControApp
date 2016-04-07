@@ -16,18 +16,22 @@ public class CommandLineClient {
         this.parentalControlService = parentalControlService;
     }
 
-    public void start() throws IOException {
-        out.print("Welcome to the Parental Control Service!\n" +
-                "Please enter your Parental Control Level preference:");
-        final String preferredLevel = in.readLine();
+    public void start() {
+        try {
+            out.print("Welcome to the Parental Control Service!\n" +
+                    "Please enter your Parental Control Level preference:");
+            final String preferredLevel = in.readLine();
 
-        out.print("Please enter the movie id you would like to see:");
-        final String movieId = in.readLine();
+            out.print("Please enter the movie id you would like to see:");
+            final String movieId = in.readLine();
 
-        final boolean allowed = parentalControlService.isAllowedToWatchMovie(preferredLevel, movieId, out::println);
+            final boolean allowed = parentalControlService.isAllowedToWatchMovie(preferredLevel, movieId, out::println);
 
-        out.println(allowed ?
-                "You may watch this movie!" :
-                "You are not allowed to watch this movie.");
+            out.println(allowed ?
+                    "You may watch this movie!" :
+                    "You are not allowed to watch this movie.");
+        } catch (IOException e) {
+            out.println("An error occurred. Please start over.");
+        }
     }
 }
