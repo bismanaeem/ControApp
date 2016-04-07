@@ -47,8 +47,8 @@ public class CommandLineClientTest {
         // Verify behaviour
         InOrder inOrder = inOrder(out, service);
         inOrder.verify(out).print("Welcome to the Parental Control Service!\n" +
-                "Please enter your Parental Control Level preference:");
-        inOrder.verify(out).print("Please enter the movie id you would like to see:");
+                "Please enter your Parental Control Level preference: ");
+        inOrder.verify(out).print("Please enter the movie id you would like to see: ");
         inOrder.verify(service).isAllowedToWatchMovie(
                 eq("parental control level preference"), eq("requested movie id"), any(AdditionalMessageCallback.class));
         inOrder.verify(out).println(anyString());
@@ -71,7 +71,7 @@ public class CommandLineClientTest {
         client.start();
 
         // Verify behaviour
-        verify(out).println("You may watch this movie!");
+        verify(out).println("\nYou may watch this movie!");
     }
 
     @Test
@@ -90,7 +90,7 @@ public class CommandLineClientTest {
         client.start();
 
         // Verify behaviour
-        verify(out).println("You are not allowed to watch this movie.");
+        verify(out).println("\nYou are not allowed to watch this movie.");
     }
 
     @Test

@@ -17,9 +17,9 @@ public class FakeMovieService implements MovieService {
             case "2":
                 return "12";
             case "3":
-                throw new TechnicalFailureException("Sorry, we have experience a technical failure");
+                throw new TechnicalFailureException("Sorry, we have experience a technical failure.");
             default:
-                throw new TitleNotFoundException("Sorry, we could not find the movie you are looking for");
+                throw new TitleNotFoundException("Sorry, we could not find the movie you are looking for.");
         }
     }
 }
