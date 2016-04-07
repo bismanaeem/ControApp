@@ -1,4 +1,4 @@
-Feature: Customer can only access movies with ratings lower than their preference
+Feature: Customer can only access movies with ratings lower than or equal to their preference
 
   Background:
     Given parental control levels U, PG, 12, 15, 18

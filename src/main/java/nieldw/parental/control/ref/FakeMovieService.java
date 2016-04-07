@@ -5,7 +5,7 @@ import nieldw.parental.control.meta.TechnicalFailureException;
 import nieldw.parental.control.meta.TitleNotFoundException;
 
 /**
- * A fake implementation of {@link MovieService} for use in a reference implementation on.
+ * A fake implementation of {@link MovieService} for use in a reference implementation only.
  */
 public class FakeMovieService implements MovieService {
 

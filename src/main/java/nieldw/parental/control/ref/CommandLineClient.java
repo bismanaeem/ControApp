@@ -22,7 +22,7 @@ public class CommandLineClient {
                     "Please enter your Parental Control Level preference: ");
             final String preferredLevel = in.readLine();
 
-            out.print("Please enter the movie id you would like to see: ");
+            out.print("Please enter the movie id you would like to view: ");
             final String movieId = in.readLine();
 
             final boolean allowed = parentalControlService.isAllowedToWatchMovie(preferredLevel, movieId, out::println);

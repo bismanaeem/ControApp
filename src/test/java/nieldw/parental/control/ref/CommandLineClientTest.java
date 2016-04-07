@@ -48,7 +48,7 @@ public class CommandLineClientTest {
         InOrder inOrder = inOrder(out, service);
         inOrder.verify(out).print("Welcome to the Parental Control Service!\n" +
                 "Please enter your Parental Control Level preference: ");
-        inOrder.verify(out).print("Please enter the movie id you would like to see: ");
+        inOrder.verify(out).print("Please enter the movie id you would like to view: ");
         inOrder.verify(service).isAllowedToWatchMovie(
                 eq("parental control level preference"), eq("requested movie id"), any(AdditionalMessageCallback.class));
         inOrder.verify(out).println(anyString());

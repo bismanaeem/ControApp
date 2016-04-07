@@ -1,5 +1,6 @@
 package nieldw.parental.control.row;
 
+@SuppressWarnings("unused")
 public class MovieRow {
     private String id;
     private String name;
