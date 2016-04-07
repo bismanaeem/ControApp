@@ -64,6 +64,23 @@ public class ParentalControlServiceTest {
     }
 
     @Test
+    public void isAllowedToWatchMovieWithMovieRatingHigherThanUserPreference_shouldNotAllowWatching() throws Exception {
+        // Set up fixture
+        service = new ParentalControlService(movieService, levelComparator);
+
+        // Set expectations
+        when(movieService.getParentalControlLevel("some movie id")).thenReturn("12");
+        when(levelComparator.compare("12", "PG")).thenReturn(1);
+
+        // Exercise SUT
+        final boolean result = service.isAllowedToWatchMovie("PG", "some movie id", additionalMessageCallback);
+
+        // Verify behaviour
+        assertThat(result, is(false));
+        verifyZeroInteractions(additionalMessageCallback);
+    }
+
+    @Test
     public void isAllowedToWatchMovieWithTitleNotFoundException_shouldCallCallbackWithMessage() throws Exception {
         // Set up fixture
         final String expectedMessage = "title not found exception message";
