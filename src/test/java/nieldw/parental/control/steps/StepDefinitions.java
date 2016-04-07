@@ -41,7 +41,7 @@ public class StepDefinitions {
     }
 
     @Given("^parental control levels (.*)$")
-    public void parental_control_levels_U_PG_(List<String> levels) throws Throwable {
+    public void parental_control_levels(List<String> levels) throws Throwable {
         validLevels = levels;
         levelComparator = new ParentalControlLevelComparator(validLevels);
     }
