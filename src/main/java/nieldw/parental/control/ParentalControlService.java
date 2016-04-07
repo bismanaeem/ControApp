@@ -19,12 +19,14 @@ public class ParentalControlService {
     public boolean isAllowedToWatchMovie(String preferredLevel, String movieId, AdditionalMessageCallback callback) {
         try {
             final String movieParentalControlLevel = movieService.getParentalControlLevel(movieId);
-            if (levelComparator.compare(movieParentalControlLevel, preferredLevel) <= 0) {
-                return true;
-            }
+            return matchesPreferredLevel(preferredLevel, movieParentalControlLevel);
         } catch (TitleNotFoundException | TechnicalFailureException e) {
             callback.showMessage(e.getMessage());
+            return false;
         }
-        return false;
+    }
+
+    private boolean matchesPreferredLevel(String preferredLevel, String movieParentalControlLevel) {
+        return levelComparator.compare(movieParentalControlLevel, preferredLevel) <= 0;
     }
 }
